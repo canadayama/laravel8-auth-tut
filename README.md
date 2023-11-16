@@ -1,5 +1,11 @@
 # Laravel Authentication Course
 
+## Send emails to log
+
+In .env set:
+
+`MAIL_MAILER=log`
+
 ## Code with Dary
 
 1. How Does Authentication Works In Laravel?
