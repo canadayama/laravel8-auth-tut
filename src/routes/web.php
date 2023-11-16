@@ -3,6 +3,7 @@
 use App\Http\Controllers\EmailsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SmsController;
 use App\Http\Controllers\TestsEnrollmentController;
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
@@ -39,3 +40,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //Route::get('/email', [EmailsController::class, 'email']);
 
 Route::get('/send-testenrollment', [TestsEnrollmentController::class, 'sendTestNotification']);
+
+Route::get('/sms', [SmsController::class, 'index']);

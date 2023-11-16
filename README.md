@@ -14,5 +14,5 @@ In .env set:
 4. How To Setup Your Local Development for Mailing
 5. How To Add Attachments To Emails
 6. How To Send Notifications In Laravel
-7.
+7. How To Send SMS Notifications In Laravel
 8.
