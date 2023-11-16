@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: laravel8auth-nginx
+    restart: unless-stopped
+    ports:
+      - ${NGINX_PORT_OUT}:80
+    volumes:
+      - ./src:/var/www/html
+      - ./scripts/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      laravel8auth:
+
+  mariadb:
+    image: mariadb:10.11
+    container_name: laravel8auth-mariadb
+    restart: unless-stopped
+    tty: true
+    ports:
+      - ${DB_PORT_OUT}:3306
+    volumes:
+      - data:/var/lib/mysql
+    networks:
+      - laravel8auth
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel8auth-app
+    restart: unless-stopped
+    ports:
+      - 9000:9000
+      - 5678:5678 # For debugging
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      - laravel8auth
+    depends_on:
+      - nginx
+      - mariadb
+
+volumes:
+  data:
+
+networks:
+  laravel8auth:
