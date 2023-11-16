@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
+use App\Models\User;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,3 +26,9 @@ Route::get('/private', [HomeController::class, 'private']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Route for mailing
+Route::get('/email', function() {
+    Mail::to('rhayashi@gruuw.com')->send(new WelcomeMail());
+    return new WelcomeMail();
+});
